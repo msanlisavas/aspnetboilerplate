@@ -108,3 +108,34 @@ application. This way, we can create a menu on the client-side.
 The ASP.NET Boilerplate [templates](/Templates) use this system to create
 and show a menu to the user. Create a template and see the source code
 for more info.
+
+### Creating Different Menus
+
+Taking advantage of **context.Manager.Menus** property to create different menus.
+
+    public class SimpleTaskSystemNavigationProvider : NavigationProvider
+    {
+        public override void SetNavigation(INavigationProviderContext context)
+        {
+           // Side Menu
+           var sideMenu = new MenuDefinition("SideMenu", new LocalizableString("SideMenu", "SimpleTaskSystem"));
+           context.Manager.Menus["SideMenu"] = sideMenu;
+            sideMenu
+                .AddItem(
+                    new MenuItemDefinition(
+                        "SideMenuHomePage",
+                        L("HomePage"),
+                        url: "",
+                        icon: "fas fa-home"
+                    )
+                )
+                .AddItem(
+                    new MenuItemDefinition(
+                        "SideMenuProfile",
+                        L("Profile"),
+                        url: "profile",
+                        icon: "fas fa-users"
+                    )
+                );
+        }
+    }
